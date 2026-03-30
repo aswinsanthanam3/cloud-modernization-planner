@@ -280,8 +280,10 @@ As a security engineer, I need environment-tier SCPs at Prod and Staging OUs so 
 `scp-prod-no-direct-deploy`:
 - Deny console-user-initiated `ec2:RunInstances`, `rds:CreateDBInstance`, `lambda:UpdateFunctionCode`, `ecs:UpdateService`, `ecs:RegisterTaskDefinition`
 - Condition: `StringNotLike aws:PrincipalArn` → CI/CD pipeline role ARNs are exempt
+- **TEAM alignment (Epic 10):** `JIT-DeployOverride` role ARN must also be exempted — use tag-based condition `aws:PrincipalTag/access-pattern = "jit"` instead of hardcoding ARNs, so new JIT permission sets are automatically allowed
 - Validation: developer SSO session in `BU1-API/Prod` → `aws lambda update-function-code` → **Denied**
 - Validation: CI/CD pipeline role in `BU1-API/Prod` → `aws lambda update-function-code` → **Allowed**
+- Validation: TEAM `JIT-DeployOverride` session in `BU1-API/Prod` → `aws lambda update-function-code` → **Allowed** (tag condition met)
 
 `scp-prod-delete-protect`:
 - Deny `rds:DeleteDBInstance`, `rds:DeleteDBCluster` without `aws:MultiFactorAuthPresent`

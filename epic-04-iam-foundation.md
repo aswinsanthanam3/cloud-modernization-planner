@@ -9,6 +9,8 @@
 
 > **Note:** SCP governance (four-tier model, BU service profiles, environment controls, and SCP validation) has been moved to **Epic 9** to decouple IAM delivery from InfoSec-gated SCP approval cycles. IAM work can progress independently.
 
+> **TEAM (Epic 10):** Permission sets defined here serve as the foundation for AWS TEAM just-in-time elevated access. When designing standing assignments in LZ-401, plan for two categories: *always-standing* (ReadOnly, Dev/Sandbox write access) and *JIT-only via TEAM* (Prod write access, PowerUser, AdministratorAccess). Epic 10 will remove standing write assignments in Prod and replace them with time-bound TEAM requests.
+
 ---
 
 ## Brownfield Context
